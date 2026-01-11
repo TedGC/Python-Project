@@ -1,0 +1,3 @@
+"Station","Temperature"
+"Seoul", "-6"
+"New York", "45"
