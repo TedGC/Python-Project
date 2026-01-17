@@ -14,17 +14,19 @@ HEADERS = {
 
 connection = sqlite3.connect("data.db")
 
-def scrape(url):
-    """Scrape the page source from the URL"""
-    response = requests.get(url, headers=HEADERS)
-    source = response.text
-    return source
+
+class FirstClass:
+    def scrape(self, url):
+        """Scrape the page source from the URL"""
+        response = requests.get(url, headers=HEADERS)
+        source = response.text
+        return source
 
 
-def extract(source):
-    extractor = selectorlib.Extractor.from_yaml_file("extract.yaml")
-    value = extractor.extract(source)["tours"]
-    return value
+    def extract(self, source):
+        extractor = selectorlib.Extractor.from_yaml_file("extract.yaml")
+        value = extractor.extract(source)["tours"]
+        return value
 
 
 def send_email(message):
