@@ -17,9 +17,9 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 load_dotenv()
 
 @tool
-def add_task():
+def add_task(task):
     """add a new task to the user's tak list. use this when the user wants to add or create a new task"""
-    print('adding task')
+    print(task)
     print('task added')
 
 tools = [add_task]
@@ -34,7 +34,7 @@ llm = ChatGoogleGenerativeAI(
 )
 
 system_prompt = 'you are a helpful assistant'
-user_input = 'add a new task to buy milk'
+user_input = 'add a new task to buy milk and new apple macbook'
 
 prompt = ChatPromptTemplate([
     ("system", system_prompt),
