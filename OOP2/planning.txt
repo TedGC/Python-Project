@@ -1,0 +1,14 @@
+
+
+In this file, I am first going to make a structure of what app is going to look like and functions to be considred ass MVP
+
+
+1. user can see a list of hotels
+2. user can book a hotels
+3. user can get a reservatino ticket
+
+
+classes : 
+User 
+Hotel
+ReservationTicket
