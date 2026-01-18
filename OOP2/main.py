@@ -5,6 +5,8 @@
 import pandas as pd
 
 df = pd.read_csv('hotels.csv', dtype={'id':str})
+df_card = pd.read_csv('cards.csv', dtype=str).to_dict(orient="records")
+df_password = pd.read_csv('card_security.csv', dtype=str)
 
 
 class Hotel: 
@@ -39,16 +41,48 @@ class ReservationTicket:
         return content
     
 
-print(df)
+class CreditCard:
+    def __init__(self, number):
+        self.number = number
+    
+    def validate(self, expiration, holder, cvc): 
+        card_data = {"number":self.number, "expiration":expiration, 
+                     "holder":holder, "cvc":cvc}
+        if card_data in df_card:
+            return True
+        else:
+            return f"{card_data} not found. Try differnet cards"
+        
+        
+class SecureCreditCard(CreditCard):
+    def authenticate(self, given_password):
+        password = df_password.loc[df_password['number'] == self.number, 'password'].squeeze()
+        if password == given_password:
+            return True
+        else:
+            return False
 
-hotel_id = input('enter the id of the hotel: ')
-hotel = Hotel(hotel_id)
+
+
+print(df)
+print(df_card)
+
+
+hotel_ID = input('enter the id of the hotel: ')
+hotel = Hotel(hotel_ID)
 
 if hotel.available():
-    hotel.book()
-    name = input('enter your name: ')
-    reservation_ticket = ReservationTicket(customer_name=name, hotel_object=hotel)
-    print(reservation_ticket.generate())
-
+    credit_card = SecureCreditCard(number='1234')
+    if credit_card.validate( holder='JOHN SMITH', expiration='12/26', cvc='123'): 
+        given_password = input("Enter your password here: ")
+        if credit_card.authenticate(given_password):
+            hotel.book()
+            name = input('enter your name: ')
+            reservation_ticket = ReservationTicket(customer_name=name, hotel_object=hotel)
+            print(reservation_ticket.generate())
+        else: 
+            print("Wrong password, try a different password")
+    else:
+        print('there was an issue with your payment')
 else: 
     print('hotel is not available at the moment')
