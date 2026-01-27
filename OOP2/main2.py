@@ -59,6 +59,8 @@ class ReservationTicket:
     def convert(amount):
         return amount * 2
     
+
+    # assigning new class value for the existing ones to align with the purpose of the project
     def __eq__(self, other):
         if self.hotel_id == other.hotel_id:
             return True
