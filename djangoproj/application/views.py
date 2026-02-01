@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ApplicationForm 
 from .models import Form 
 from django.contrib import messages
+from django.core.mail import EmailMessage
+
+
 # Create your views here.
 
 
@@ -19,7 +22,14 @@ def index(request):
 
             Form.objects.create(first_name=first_name, last_name=last_name,
                                 email=email, date=date, occupation=occupation)
+            
+            message_body = f'a new job application was submitted \n {first_name}'
+            email_message = EmailMessage('form submission confirmation', message_body, to=[email])
+            email_message.send()
+
             messages.success(request, "Form submitted successfully")
+
+            return redirect('index')
 
     return render(request, "index.html")
 
