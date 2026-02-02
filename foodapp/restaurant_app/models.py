@@ -12,11 +12,11 @@ MEAL_TYPE = (
 
 STATUS = { 
     (0,'Unavailable'),
-    (1, "Available")
+    (1, "Available"),
 }
 
 
-class MenuModel(models.Model):
+class Item(models.Model):
     menu_name = models.CharField(max_length=80, unique=True)
     menu_cat = models.CharField(choices=MEAL_TYPE)
     description = models.CharField(max_length=1000)

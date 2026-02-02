@@ -1,11 +1,11 @@
 from django.views import generic
-from .models import MenuModel, MEAL_TYPE
+from .models import Item, MEAL_TYPE
 
 #the name of "quesryset" and "template_name" have to be exactly written as such for Django to 
 # interpret the data associated with it 
 
 class MenuList(generic.ListView):
-    queryset = MenuModel.objects.order_by('date_created')
+    queryset = Item.objects.order_by('date_created')
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -15,5 +15,5 @@ class MenuList(generic.ListView):
 
 
 class MenuItemDetail(generic.DetailView):
-    model = MenuModel
+    model = Item
     template_name = 'menu_item_detail.html'

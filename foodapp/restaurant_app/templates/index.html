@@ -10,11 +10,11 @@
 <body>
     <h1>restaurant menu</h1>
     {% for meal in meals %}
-
     <h1>{{ meal.1 }}</h1>
-    {% for row in menumodel_list %}
-    <p>{{ row.meal }}</p>
-    <p>{{ row.description}}</p>
+
+    {% for row in item_list %}
+    <p>{{ row.menu_name }}</p>
+    <p>{{ row.description }}</p>
     {% endfor %}
     {% endfor %}
 </body>
